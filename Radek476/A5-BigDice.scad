@@ -1,8 +1,12 @@
 
+// Design helper constans ...
+
 $01 = 0.001;
 $02 = 2*$01;
 $03 = 3*$01;
 $04 = 4*$01;
+
+// Model parameters ...
 
 size = 50;
 sphereSize = size/1.44;
