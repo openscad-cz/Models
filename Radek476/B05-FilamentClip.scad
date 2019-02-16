@@ -3,7 +3,7 @@
 
 length = 22;
 height = 6;
-width = 14;
+width = 15;
 
 fd = 1.75; // Filament diameter
 
@@ -131,7 +131,7 @@ module body() {
 	$fn=100;
 	intersection() {
 		cube([width,length,height]);
-		translate([width/2,0,h1/2]) rotate([-90,0,0]) cylinder(d=width,length);
+		scale([1,1,0.8]) translate([width/2,0,h1]) rotate([-90,0,0]) cylinder(d=width,length);
 		translate([0,length/2,-length*0.26]) rotate([0,90,0]) cylinder(d=length*1.2,width);
 	}
 }
