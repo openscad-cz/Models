@@ -17,8 +17,9 @@ Test_Qty = len(A_T1);
 echo(Test_Qty = Test_Qty);
 
 // StampN = 1; // Number of stamps: 0 - no stamps, 1 - one centered, ...
-StampText = "@"; // Set to empty string to use image
-StampImage = "bear1.png"; // Used only if StampText is empty
+StampText = ""; // Set to empty string to use image
+StampImport2D = "bear2.dxf"; // Used only inf StampText is empty
+StampImage = "bear1.png"; // Used only if StampText and StampImport2D is empty
 StampColor = "Red";
 StampDepth = 0.3; // 0.8 - Maximum 
 StampHeight = 4.2; // Define size of text or image height
@@ -30,6 +31,7 @@ ll = len(StampText)>0 ? len(StampText) : 1;
 StampN = (Test==1) ? 1 : Len/(5*ll);
 
 
+		
 module V2020(V_Ht = Len)
 {
     rotate([0,-90,0])
@@ -102,6 +104,10 @@ if (Test == 0)
 						if (StampText > "") {
 							linear_extrude(1)
 							text(StampText, halign="center", valign="center");
+						} else if(StampImport2D > "") {
+							linear_extrude(1)
+							translate([-86,-125,0])// Magic constanst to CENTER object
+							import(StampImport2D);
 						} else if (StampImage > "") {
 							translate([0,0,100+1]) mirror([0,0,1])
 							surface(StampImage, center=true);
