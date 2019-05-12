@@ -3,7 +3,7 @@
 //Remixed from: https://www.thingiverse.com/thing:832077
 //
 Test = 0;           //0 = Final Print,  1 = Test Print
-Len = 25;          //165 * 3 = 495mm
+Len = 30;          //165 * 3 = 495mm
 Qty = 3;
 Gap = 3.1;          //3.1 = 1/2 Dimensioned Gap distance where channel connects to V-Slot
 
@@ -16,19 +16,24 @@ A_T1 = [.05, .025, 0, -.025 -.05, -.075];      //Used for Test print
 Test_Qty = len(A_T1);
 echo(Test_Qty = Test_Qty);
 
-// StampN = 1; // Number of stamps: 0 - no stamps, 1 - one centered, ...
-StampText = ""; // Set to empty string to use image
-StampImport2D = "bear2.dxf"; // Used only inf StampText is empty
-StampImage = "bear1.png"; // Used only if StampText and StampImport2D is empty
+
+StampText = ""; // Set empty string to use image ...
+StampTextRatio = 0.8; // Text width/height ratio:
+StampImport2D = "bear2.svg"; // Used only if StampText is empty - REQUIRE enable SVG import in OpenSCAD settings
+StampImport2Drotate = 90;
+StampImport2Dshift = [0,0,0];
+// StampImport2D = "bear2.dxf"; // Autimatic "center" not works, needs manul shift ...
+// StampImport2Dshift = [-86,-125,0];
+StampImage = "bear1.png"; // Used only if StampText and StampImport2D is empty - WARNING: Use function "surface" and is slow :-( 
 StampColor = "Red";
-StampDepth = 0.3; // 0.8 - Maximum 
-StampHeight = 4.2; // Define size of text or image height
+StampDepth = 0.3; // 0.8 - Maximum (more makes hole :-)
+StampHeight = 4.8; // Define size of text or image height
+StampMargin = 1; // Defines a gap at both ends
 
-// Setting number of stamps automatic by slot length and text lenght
-
-ll = len(StampText)>0 ? len(StampText) : 1;
-
+ll = len(StampText)>0 ? len(StampText) : 3;
+// Setting number of stamps automatic by slot and text lenght:
 StampN = (Test==1) ? 1 : Len/(5*ll);
+// StampN = 3; // Number of stamps: 0 - no stamps, 1 - one centered, ...
 
 
 		
@@ -72,6 +77,7 @@ module Channel(T1 = -.1, Y1 = Z1)
 module Stamps() {
 	if (StampN > 0) {
 		StampN = ceil(StampN);
+		Len = Len - 2*StampMargin;
 		dX = Len / StampN;
 		X1 = -Len/2 + dX/2;
 		for (n=[0:1:StampN-1]) {
@@ -102,12 +108,14 @@ if (Test == 0)
 					Channel(V1,Z1);
 					Stamps() {
 						if (StampText > "") {
+							scale([StampTextRatio,1,1])
 							linear_extrude(1)
 							text(StampText, halign="center", valign="center");
 						} else if(StampImport2D > "") {
 							linear_extrude(1)
-							translate([-86,-125,0])// Magic constanst to CENTER object
-							import(StampImport2D);
+							rotate([0,0,StampImport2Drotate])
+							translate(StampImport2Dshift)
+							import(StampImport2D, center=true);
 						} else if (StampImage > "") {
 							translate([0,0,100+1]) mirror([0,0,1])
 							surface(StampImage, center=true);
@@ -125,7 +133,7 @@ if (Test == 0)
 				difference() {
 					Channel(A_T1[i],Z1);
 					Stamps() {
-						scale([0.61,1,1])
+						scale([StampTextRatio,1,1])
 						linear_extrude(1)
 						text(str("V1=",A_T1[i]), halign="center", valign="center");
 					}
