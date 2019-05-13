@@ -2,7 +2,7 @@
 //2/16/2019 By David Bunch
 //Remixed from: https://www.thingiverse.com/thing:832077
 //
-Test = 0;           //0 = Final Print,  1 = Test Print
+Test = 1;           //0 = Final Print,  1 = Test Print
 Len = 30;          //165 * 3 = 495mm
 Qty = 3;
 Gap = 3.1;          //3.1 = 1/2 Dimensioned Gap distance where channel connects to V-Slot
@@ -12,12 +12,12 @@ V1 = 0.0;           //Thickness at V connection
                     //-.1 works best for me
 Z1 =  .25;
 
-A_T1 = [.05, .025, 0, -.025 -.05, -.075];      //Used for Test print
+A_T1 = [.05, .025, 0, -.025, -.05, -0.075];      //Used for Test print
 Test_Qty = len(A_T1);
 echo(Test_Qty = Test_Qty);
 
 
-StampText = ""; // Set empty string to use image ...
+StampText = "Text"; // Set empty string to use image ...
 StampTextRatio = 0.8; // Text width/height ratio:
 StampImport2D = "bear2.svg"; // Used only if StampText is empty - REQUIRE enable SVG import in OpenSCAD settings
 StampImport2Drotate = 90;
