@@ -17,6 +17,8 @@ Test_Qty = len(A_T1);
 echo(Test_Qty = Test_Qty);
 
 
+Font = "Arial:style=Bold"; //Stamp text font
+
 StampText = "Text"; // Set empty string to use image ...
 StampTextRatio = 0.8; // Text width/height ratio:
 StampImport2D = "bear2.svg"; // Used only if StampText is empty - REQUIRE enable SVG import in OpenSCAD settings
@@ -110,7 +112,7 @@ if (Test == 0)
 						if (StampText > "") {
 							scale([StampTextRatio,1,1])
 							linear_extrude(1)
-							text(StampText, halign="center", valign="center");
+							text(StampText, font = Font, halign="center", valign="center");
 						} else if(StampImport2D > "") {
 							linear_extrude(1)
 							rotate([0,0,StampImport2Drotate])
@@ -135,7 +137,7 @@ if (Test == 0)
 					Stamps() {
 						scale([StampTextRatio,1,1])
 						linear_extrude(1)
-						text(str("V1=",A_T1[i]), halign="center", valign="center");
+						text(str("V1=",A_T1[i]), font = Font, halign="center", valign="center");
 					}
 				}
     }
