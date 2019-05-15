@@ -2,7 +2,7 @@
 //2/16/2019 By David Bunch
 //Remixed from: https://www.thingiverse.com/thing:832077
 //
-Test = 1;           //0 = Final Print,  1 = Test Print
+Test = 0;           //0 = Final Print,  1 = Test Print
 Len = 30;          //165 * 3 = 495mm
 Qty = 3;
 Gap = 3.1;          //3.1 = 1/2 Dimensioned Gap distance where channel connects to V-Slot
@@ -12,12 +12,12 @@ V1 = 0.0;           //Thickness at V connection
                     //-.1 works best for me
 Z1 =  .25;
 
-A_T1 = [.05, .025, 0, -.025, -.05, -0.075];      //Used for Test print
+A_T1 = [0.05, 0.025, 0, -0.025, -0.05, -0.075];      //Used for Test print
 Test_Qty = len(A_T1);
 echo(Test_Qty = Test_Qty);
 
 
-StampText = "Text"; // Set empty string to use image ...
+StampText = ""; // Set empty string to use image ...
 StampTextRatio = 0.8; // Text width/height ratio:
 StampImport2D = "bear2.svg"; // Used only if StampText is empty - REQUIRE enable SVG import in OpenSCAD settings
 StampImport2Drotate = 90;
@@ -27,7 +27,7 @@ StampImport2Dshift = [0,0,0];
 StampImage = "bear1.png"; // Used only if StampText and StampImport2D is empty - WARNING: Use function "surface" and is slow :-( 
 StampColor = "Red";
 StampDepth = 0.3; // 0.8 - Maximum (more makes hole :-)
-StampHeight = 4.8; // Define size of text or image height
+StampHeight = 4.2; // Define size of text or image height
 StampMargin = 1; // Defines a gap at both ends
 
 ll = len(StampText)>0 ? len(StampText) : 3;
@@ -74,7 +74,7 @@ module Channel(T1 = -.1, Y1 = Z1)
 	
 }
 
-module Stamps() {
+module Stamps(T1,Z1) {
 	if (StampN > 0) {
 		StampN = ceil(StampN);
 		Len = Len - 2*StampMargin;
@@ -82,17 +82,17 @@ module Stamps() {
 		X1 = -Len/2 + dX/2;
 		for (n=[0:1:StampN-1]) {
 			translate([X1 + n*dX,0,0])
-			Stamp() {
+			Stamp(T1,Z1) {
 				children();
 			}
 		}
 	}
 }
 
-module Stamp() {
+module Stamp(T1,Z1) {
 	color(StampColor)
 	translate([-Len/2, 0, Z1 + StampDepth - 0.001])
-	resize([0,StampHeight,StampDepth], auto=[true,false,false])
+	resize([0,StampHeight+2*T1,StampDepth], auto=[true,false,false])
 	rotate([0,180,0])
 	children();
 }
@@ -106,7 +106,7 @@ if (Test == 0)
         translate([Len/2,i * 9,0])
 				difference() {
 					Channel(V1,Z1);
-					Stamps() {
+					Stamps(V1,Z1) {
 						if (StampText > "") {
 							scale([StampTextRatio,1,1])
 							linear_extrude(1)
@@ -132,7 +132,7 @@ if (Test == 0)
         translate([Len/2,i * 9,0])
 				difference() {
 					Channel(A_T1[i],Z1);
-					Stamps() {
+					Stamps(A_T1[i],Z1) {
 						scale([StampTextRatio,1,1])
 						linear_extrude(1)
 						text(str("V1=",A_T1[i]), halign="center", valign="center");
