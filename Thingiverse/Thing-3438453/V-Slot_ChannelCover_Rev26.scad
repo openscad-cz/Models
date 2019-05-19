@@ -4,7 +4,7 @@
 //
 Test = 0;           //0 = Final Print,  1 = Test Print
 Len = 30;          //165 * 3 = 495mm
-Qty = 3;
+Qty = 1;
 Gap = 3.1;          //3.1 = 1/2 Dimensioned Gap distance where channel connects to V-Slot
 
 V1 = 0.0;           //Thickness at V connection
@@ -18,6 +18,7 @@ echo(Test_Qty = Test_Qty);
 
 
 StampText = ""; // Set empty string to use image ...
+StampTextFont = ";style:bold"; //
 StampTextRatio = 0.8; // Text width/height ratio:
 StampImport2D = "bear2.svg"; // Used only if StampText is empty - REQUIRE enable SVG import in OpenSCAD settings
 StampImport2Drotate = 90;
@@ -58,19 +59,35 @@ module V2020(V_Ht = Len)
         cylinder(d=4.2,h=V_Ht+2,center=false,$fn=16);
     }
 }
+
+O1 = 0.5;
+
 module Channel(T1 = -.1, Y1 = Z1)
 {
+	
     X1 = Gap + T1;
     echo(X1 = X1);
     echo(X1 * 2);
     rotate([0,-90,0])
     rotate([0,0,-90])
-    linear_extrude(height = Len, center = false, convexity = 10)
+    linear_extrude(height = Len, center = false, convexity = 10) 
+	union() {
 	polygon(points = 
     [[3.13+T1,5.37],[3.34+T1,5],[3.34+T1,2.7],[3.1+T1,1.8],[3.5+T1,0.5+Y1],
     [3+T1,Y1],[-3-T1,Y1],[-3.5-T1,0.5+Y1],[-3.1-T1,1.8],[-3.34-T1,2.7],
     [-3.34-T1,5],[-3.13-T1,5.37],[-2.7-T1,5.37],[-2.49-T1,5],[-2.49-T1,2.81],
     [-1.97-T1,.8+Y1],[1.97+T1,.8+Y1],[2.49+T1,2.81],[2.49+T1,5],[2.7+T1,5.37]]);
+	polygon([
+		[-4.9,0-O1],
+		[-4.9-O1,0],
+		[-4.9,0],
+		[-3.5-T1,0.5+Y1],
+		[3.5+T1,0.5+Y1],
+		[4.9,0],
+		[4.9+O1,0],
+		[4.9,0-O1],
+	]);
+	}
 	
 }
 
@@ -135,7 +152,7 @@ if (Test == 0)
 					Stamps(A_T1[i],Z1) {
 						scale([StampTextRatio,1,1])
 						linear_extrude(1)
-						text(str("V1=",A_T1[i]), halign="center", valign="center");
+						text(str("V1=",A_T1[i]), halign="center", valign="center", font=StampTextFont);
 					}
 				}
     }
