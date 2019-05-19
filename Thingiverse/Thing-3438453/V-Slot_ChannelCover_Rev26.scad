@@ -16,6 +16,8 @@ A_T1 = [0.05, 0.025, 0, -0.025, -0.05, -0.075];      //Used for Test print
 Test_Qty = len(A_T1);
 echo(Test_Qty = Test_Qty);
 
+Over = 0.5; // Add 
+
 
 StampText = ""; // Set empty string to use image ...
 StampTextFont = ";style:bold"; //
@@ -60,8 +62,6 @@ module V2020(V_Ht = Len)
     }
 }
 
-O1 = 0.5;
-
 module Channel(T1 = -.1, Y1 = Z1)
 {
 	
@@ -77,16 +77,18 @@ module Channel(T1 = -.1, Y1 = Z1)
     [3+T1,Y1],[-3-T1,Y1],[-3.5-T1,0.5+Y1],[-3.1-T1,1.8],[-3.34-T1,2.7],
     [-3.34-T1,5],[-3.13-T1,5.37],[-2.7-T1,5.37],[-2.49-T1,5],[-2.49-T1,2.81],
     [-1.97-T1,.8+Y1],[1.97+T1,.8+Y1],[2.49+T1,2.81],[2.49+T1,5],[2.7+T1,5.37]]);
-	polygon([
-		[-4.9,0-O1],
-		[-4.9-O1,0],
-		[-4.9,0],
-		[-3.5-T1,0.5+Y1],
-		[3.5+T1,0.5+Y1],
-		[4.9,0],
-		[4.9+O1,0],
-		[4.9,0-O1],
-	]);
+		if (Over>0) {
+			polygon([
+				[-4.9,0-Over],
+				[-4.9-Over,0],
+				[-4.9,0],
+				[-3.5-T1,0.5+Y1],
+				[3.5+T1,0.5+Y1],
+				[4.9,0],
+				[4.9+Over,0],
+				[4.9,0-Over],
+			]);
+		}
 	}
 	
 }
@@ -107,8 +109,9 @@ module Stamps(T1,Z1) {
 }
 
 module Stamp(T1,Z1) {
+	ZZ = Over>0 ? -Over : Z1;
 	color(StampColor)
-	translate([-Len/2, 0, Z1 + StampDepth - 0.001])
+	translate([-Len/2, 0, ZZ + StampDepth - 0.001])
 	resize([0,StampHeight+2*T1,StampDepth], auto=[true,false,false])
 	rotate([0,180,0])
 	children();
