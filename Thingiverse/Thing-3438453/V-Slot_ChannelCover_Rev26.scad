@@ -16,8 +16,7 @@ A_T1 = [0.05, 0.025, 0, -0.025, -0.05, -0.075];      //Used for Test print
 Test_Qty = len(A_T1);
 echo(Test_Qty = Test_Qty);
 
-Over = 0.5; // Add 
-
+Over = 0.5; // Add wider overlay 
 
 StampText = ""; // Set empty string to use image ...
 StampTextFont = ";style:bold"; //
@@ -30,8 +29,8 @@ StampImport2Dshift = [0,0,0];
 StampImage = "bear1.png"; // Used only if StampText and StampImport2D is empty - WARNING: Use function "surface" and is slow :-( 
 StampColor = "Red";
 StampDepth = 0.3; // 0.8 - Maximum (more makes hole :-)
-StampHeight = 4.2; // Define size of text or image height
-StampMargin = 1; // Defines a gap at both ends
+StampHeight = 8.0; // Define size of text or image height
+StampMargin = 0.5; // Defines a gap at both ends
 
 ll = len(StampText)>0 ? len(StampText) : 3;
 // Setting number of stamps automatic by slot and text lenght:
