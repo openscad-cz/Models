@@ -2,7 +2,7 @@
 //2/16/2019 By David Bunch
 //Remixed from: https://www.thingiverse.com/thing:832077
 //
-Test = 0;           //0 = Final Print,  1 = Test Print
+Test = 1;           //0 = Final Print,  1 = Test Print
 Len = 30;          //165 * 3 = 495mm
 Qty = 1;
 Gap = 3.1;          //3.1 = 1/2 Dimensioned Gap distance where channel connects to V-Slot
@@ -149,13 +149,14 @@ if (Test == 0)
     %V2020();
     for (i = [0:Test_Qty-1])
     {
-        translate([Len/2,i * 9,0])
+			maxWidth = 9 + ((Over > 0) ? (3 + 2*Over) : 0) + max(A_T1);
+        translate([Len/2,i * maxWidth,0])
 				difference() {
 					Channel(A_T1[i],Z1);
 					Stamps(A_T1[i],Z1) {
 						scale([StampTextRatio,1,1])
 						linear_extrude(1)
-						text(str("V1=",A_T1[i]), halign="center", valign="center", font=StampTextFont);
+						text(str("",A_T1[i]), halign="center", valign="center", font=StampTextFont);
 					}
 				}
     }
