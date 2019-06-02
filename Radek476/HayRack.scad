@@ -33,12 +33,37 @@ LT = L-T/2;
 dRL = (RL-R)/2;
 dRR = (RR-R)/2;
 
-rotate([0,180]) l_rack();
-translate([2,0,0]) r_rack();
-// rack();
+HH = 30; // sirka a vyska dolni casti prekryvu
+
+// rotate([0,180]) l_rack();
+// translate([2,0,0]) r_rack();
+ rack();
+
+ down_rack_parts();
+
+module down_rack_parts() {
+	intersection() {
+		down_rack();
+		translate([0,-L,-L]) cube([L2,L2,L2]);
+	}
+	translate([L,HH+T,0]) {
+		intersection() {
+			down_rack();
+			translate([-L2,-L,-L]) cube([L2,L2,L2]);
+		}
+	}
+}
 
 
-
+module down_rack() {
+	difference() {
+		union() {
+			translate([-L,0,0]) cube([L2,HH,T]);
+			translate([-L,0,0]) cube([L2,T,HH]);
+		}
+		translate([0,5+20/2,0]) cube([25,20,T*3], center=true);
+	}
+}
 
 
 module l_rack() {
