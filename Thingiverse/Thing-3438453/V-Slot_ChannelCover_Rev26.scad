@@ -2,7 +2,7 @@
 //2/16/2019 By David Bunch
 //Remixed from: https://www.thingiverse.com/thing:832077
 //
-Test = 1;           //0 = Final Print,  1 = Test Print
+Test = 0;           //0 = Final Print,  1 = Test Print
 Len = 30;          //165 * 3 = 495mm
 Qty = 1;
 Gap = 3.1;          //3.1 = 1/2 Dimensioned Gap distance where channel connects to V-Slot
@@ -79,14 +79,14 @@ module Channel(T1 = -.1, Y1 = Z1)
     [-1.97-T1,.8+Y1],[1.97+T1,.8+Y1],[2.49+T1,2.81],[2.49+T1,5],[2.7+T1,5.37]]);
 		if (Over>0) {
 			polygon([
-				[-4.9-Over+OverWidth,0-OverWidth],
-				[-4.9-Over,0],
-				[-4.9,0],
+				[-4.9-V1-Over+OverWidth,0-OverWidth],
+				[-4.9-V1-Over,0],
+				[-4.9-V1,0],
 				[-3.5-T1,0.5+Y1],
 				[3.5+T1,0.5+Y1],
-				[4.9,0],
-				[4.9+Over,0],
-				[4.9+Over-OverWidth,0-OverWidth],
+				[4.9+V1,0],
+				[4.9+V1+Over,0],
+				[4.9+V1+Over-OverWidth,0-OverWidth],
 			]);
 		}
 	}
