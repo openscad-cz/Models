@@ -2,7 +2,7 @@
 //2/16/2019 By David Bunch
 //Remixed from: https://www.thingiverse.com/thing:832077
 //
-Test = 0;           //0 = Final Print,  1 = Test Print
+Test = 1;           //0 = Final Print,  1 = Test Print
 Len = 30;          //165 * 3 = 495mm
 Qty = 1;
 Gap = 3.1;          //3.1 = 1/2 Dimensioned Gap distance where channel connects to V-Slot
@@ -12,12 +12,12 @@ V1 = 0.0;           //Thickness at V connection
                     //-.1 works best for me
 Z1 =  .25;
 
-A_T1 = [0.05, 0.025, 0, -0.025, -0.05, -0.075];      //Used for Test print
+A_T1 = [0.05, 0.025, 0, -0.025, -0.05, -0.075, +6];      //Used for Test print
 Test_Qty = len(A_T1);
 echo(Test_Qty = Test_Qty);
 
-Over = 1; // Add wider overlay 
-OverWidth = 0.7;
+Over = 10; // Add wider overlay 
+OverThickness = 0.7;
 
 StampText = ""; // Set empty string to use image ...
 StampTextFont = ";style:bold"; //
@@ -25,7 +25,7 @@ StampTextRatio = 0.8; // Text width/height ratio:
 StampImport2D = "bear2.svg"; // Used only if StampText is empty - REQUIRE enable SVG import in OpenSCAD settings
 StampImport2Drotate = 90;
 StampImport2Dshift = [0,0,0];
-// StampImport2D = "bear2.dxf"; // Autimatic "center" not works, needs manul shift ...
+// StampImport2D = "bear2.dxf"; // Automatic "center" not works, needs manul shift ...
 // StampImport2Dshift = [-86,-125,0];
 StampImage = "bear1.png"; // Used only if StampText and StampImport2D is empty - WARNING: Use function "surface" and is slow :-( 
 StampColor = "Red";
@@ -79,14 +79,14 @@ module Channel(T1 = -.1, Y1 = Z1)
     [-1.97-T1,.8+Y1],[1.97+T1,.8+Y1],[2.49+T1,2.81],[2.49+T1,5],[2.7+T1,5.37]]);
 		if (Over>0) {
 			polygon([
-				[-4.9-V1-Over+OverWidth,0-OverWidth],
-				[-4.9-V1-Over,0],
-				[-4.9-V1,0],
+				[-4.9-T1-Over+OverThickness,0-OverThickness],
+				[-4.9-T1-Over,0],
+				[-4.9-T1,0],
 				[-3.5-T1,0.5+Y1],
 				[3.5+T1,0.5+Y1],
-				[4.9+V1,0],
-				[4.9+V1+Over,0],
-				[4.9+V1+Over-OverWidth,0-OverWidth],
+				[4.9+T1,0],
+				[4.9+T1+Over,0],
+				[4.9+T1+Over-OverThickness,0-OverThickness],
 			]);
 		}
 	}
@@ -109,7 +109,7 @@ module Stamps(T1,Z1) {
 }
 
 module Stamp(T1,Z1) {
-	ZZ = Over>0 ? -OverWidth : Z1;
+	ZZ = Over>0 ? -OverThickness : Z1;
 	color(StampColor)
 	translate([-Len/2, 0, ZZ + StampDepth - 0.001])
 	resize([0,StampHeight+2*T1,StampDepth], auto=[true,false,false])
