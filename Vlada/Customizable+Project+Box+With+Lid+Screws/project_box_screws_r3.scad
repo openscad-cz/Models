@@ -2,7 +2,7 @@
 
 //40mm x 60 board size
 
-inside_width = 45;
+inside_width = 55;
 inside_length = 70;
 inside_height = 12.5;
 //Wall thickness
