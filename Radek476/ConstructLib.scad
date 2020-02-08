@@ -1,5 +1,6 @@
 
-// Infinitezimal pieces
+// Infinitezimal pieces ...
+
 $01 = 0.001;
 $02 = 2*$01;
 $03 = 3*$01;
@@ -10,6 +11,7 @@ $07 = 7*$01;
 $08 = 8*$01;
 $09 = 9*$01;
 
+// Slicer parameters ...
 
 $pnd = 0.4; // Printer Nozzle Diameter
 $plh = 0.2; // Printing Layer Height
