@@ -22,7 +22,7 @@ cut_thread_percent = 10;
 // true makes the base for the thread of the can wider to fit the lid
 smooth_sides = 1; // [0:no, 1:yes]
 // Graphics on lid
-logo="koss-2.svg";
+logo="bear.svg";
 // Logo scale factor - to fit the lid
 scale=0.5;
 //Label text
