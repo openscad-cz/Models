@@ -2,6 +2,9 @@
 
 //40mm x 60 board size
 
+switch_w=12;
+switch_l=8;
+button_radius=2;
 inside_width = 55;
 inside_length = 70;
 inside_height = 12.5;
@@ -151,8 +154,13 @@ module lid(){
 }
 
 main_box();
-translate([-outside_width-2,0,0]) lid();
+translate([-outside_width-2,0,0])
+difference() {
+lid();
+    translate([outside_width/2,outside_length/2+switch_l+thickness,0])
+buttons();
 
+}
 // Infinitezimal pieces ...
 
 $01 = 0.001;
@@ -164,7 +172,7 @@ $06 = 6*$01;
 $07 = 7*$01;
 $08 = 8*$01;
 $09 = 9*$01;
-
+$10 = 10;
 // Slicer parameters ...
 
 $pnd = 0.4; // Printer Nozzle Diameter
@@ -221,3 +229,18 @@ module cl_holeNutBolt(
 }
 
 
+
+module buttons()
+{
+translate([0, -(switch_l+25), 0])  
+cube([switch_w,switch_l,thickness+$10], center=true);
+
+
+    $fn=64;
+for ( i = [0 : 3] ){    
+ rotate( i * 90, [0, 0, 90])
+    translate([0, 15, 0])    
+cylinder(h=thickness+$10 , r1=button_radius, r2=button_radius, center=true, $fn=30);
+
+}}
+    
