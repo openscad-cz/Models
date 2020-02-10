@@ -239,7 +239,7 @@ cube([switch_w,switch_l,thickness+$10], center=true);
     $fn=64;
 for ( i = [0 : 3] ){    
  rotate( i * 90, [0, 0, 90])
-    translate([0, 15, 0])    
+    translate([0, 10, 0])    
 cylinder(h=thickness+$10 , r1=button_radius, r2=button_radius, center=true, $fn=30);
 
 }}
