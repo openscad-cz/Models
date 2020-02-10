@@ -1,6 +1,6 @@
 /* Geometry */
 // The inner width in mm
-Breite_Dose = 92;
+Breite_Dose = 95;
 // The inner height in mm
 Hoehe_Dose = 50;
 // the tickness of the cans walls
@@ -34,7 +34,7 @@ size=12;
 //Label font spacing 
 spacing = 1.0;
 //Engraving depth
-depth=0.9;
+depth=0.2;
 //Label or Graphics, 1 = graphics, 2 = Label, 3 = empty
 lidDecoration = 1;
 
@@ -44,7 +44,7 @@ layout_to_print = 1; // [0:no, 1:yes]
 // Only set this to true if you want to have a sectioned view
 view_sectioned = 0; // [0:no, 1:yes]
 // It is recommended to print the parts seperately. Which part do you want to print
-part_to_print = 0; // [0:all, 1:can, 2:cap]
+part_to_print = 2; // [0:all, 1:can, 2:cap]
 // Distance between parts
 print_distance = 2;
 
