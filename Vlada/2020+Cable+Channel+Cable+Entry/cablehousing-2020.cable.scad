@@ -16,7 +16,7 @@ render(convexity = 6)
 difference() {
 linear_extrude(height=l) cablehouse();
 rotate([0,90,0])
-translate([-l/2,endH/2,-endL-d])
+translate([-l/2,endH/2,-endL/2+tG])
 cylinder(h = 2*endL, r = d,center = true/false);    
     
 }
