@@ -86,38 +86,34 @@ difference()
    //cable
         translate([(size/2)-3,(70)-3,-1]) cylinder(d=6,h=80);
      
-  if (stepDown)
-  {
-    translate([size/2-14.5,29,29])
-    rotate([45,0,0])
-      {
-       difference()
-       {
-          translate([0,0,21/-2]) 
-          cube([16,44,21]);
- if (stepDownInserts)
-  {       
-          
-      
-          translate([3,22-30/2+1,15/2])
-          rotate([0,-90,0])
-          cylinder(d=3,h=6);
-          translate([3,22+30/2+1,-15/2])
-          rotate([0,-90,0])
-          cylinder(d=3,h=6);
- 
-
-          translate([-0.01,22-30/2+1,15/2])
-          rotate([0,90,0])
-          cylinder(d=6,h=1);
-          translate([-0.01,22+30/2+1,-15/2])
-          rotate([0,90,0])
-          cylinder(d=6,h=1);
-     }     
-       
-    }
-   }
-  }
+if (stepDown)
+{
+	translate([size/2-14.5,29,29])
+	rotate([45,0,0])
+		{
+			difference()
+			{
+				translate([0,0,21/-2]) 
+						cube([16,44,21]);
+				if (stepDownInserts) {
+					translate([-0.01,22-30/2+1,15/2])
+						rotate([0,90,0])
+							cylinder(d=6,h=1);
+					translate([-0.01,22+30/2+1,-15/2])
+							rotate([0,90,0])
+								cylinder(d=6,h=1);
+				}
+			}
+			if (stepDownInserts) {
+				translate([3,22-30/2+1,15/2])
+					rotate([0,-90,0])
+						cylinder(d=3,h=6);
+				translate([3,22+30/2+1,-15/2])
+					rotate([0,-90,0])
+						cylinder(d=3,h=6);
+			}
+		}
+}
   
   *translate([0,-1,-1]) cube (100);
 }

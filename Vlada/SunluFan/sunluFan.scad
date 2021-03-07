@@ -6,6 +6,8 @@ fanOffsetX = stepDown ? -1.5 : 0;
 fanOff = [fanOffsetX,30,30];
 size = 78.6-4;
 
+stepDownInserts = false; //true or false
+
 $fn=256;
 
 //rotate([-90,0,0])
@@ -90,19 +92,23 @@ difference()
         {
           translate([0,0,21/-2]) 
               cube([16,44,21]);
-          translate([-0.01,22-30/2+1,15/2])
-            rotate([0,90,0])
-              cylinder(d=6,h=1);
-          translate([-0.01,22+30/2+1,-15/2])
-              rotate([0,90,0])
-                cylinder(d=6,h=1);
+					if (stepDownInserts) {
+						translate([-0.01,22-30/2+1,15/2])
+							rotate([0,90,0])
+								cylinder(d=6,h=1);
+						translate([-0.01,22+30/2+1,-15/2])
+								rotate([0,90,0])
+									cylinder(d=6,h=1);
+					}
         }
-        translate([3,22-30/2+1,15/2])
-          rotate([0,-90,0])
-            cylinder(d=3,h=6);
-        translate([3,22+30/2+1,-15/2])
-          rotate([0,-90,0])
-            cylinder(d=3,h=6);
+				if (stepDownInserts) {
+					translate([3,22-30/2+1,15/2])
+						rotate([0,-90,0])
+							cylinder(d=3,h=6);
+					translate([3,22+30/2+1,-15/2])
+						rotate([0,-90,0])
+							cylinder(d=3,h=6);
+				}
       }
   }
   
