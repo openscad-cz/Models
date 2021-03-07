@@ -1,6 +1,9 @@
+//https://www.thingiverse.com/thing:4729474
+
 stepDown = true; //true or false
 wall = 2.2;
 dOut = 225+10;
+$fn=256;
 fanOffsetX = stepDown ? -1.5 : 0;
 fanOff = [fanOffsetX,30,30];
 size = 78.6-4;
@@ -8,7 +11,9 @@ fanWidth=41;
 fanDeph=20;
 mainInserts = false; //true or false
 stepDownInserts = true; //true or false
-$fn=256;
+tapeWidth=21;
+layerHeight=0.2;
+mountingTape=true; //true or false
 
 difference()
 {
@@ -83,9 +88,34 @@ difference()
         rotate([-90,0,0]) cylinder(d=4.5,h=10);
       
  } 
-   //cable
+  if (mountingTape)
+  {       
+          
+        //upper mounting tape
+        translate([-tapeWidth/2,30-tapeWidth/2,70-layerHeight*2])
+        cube([tapeWidth,tapeWidth,layerHeight*2]);
+
+        //lower  mounting tape  
+        translate([-tapeWidth/2,70-layerHeight*2,30+tapeWidth/2])
+        rotate([-90,0,0]) 
+        cube([tapeWidth,tapeWidth,layerHeight*2]);
+
+       
+     }   
+
+
+ //cable
         translate([(size/2)-3,(70)-3,-1]) cylinder(d=6,h=80);
      
+  if (stepDown)
+  {
+    translate([size/2-14.5,29,29])
+    rotate([45,0,0])
+      {
+       difference()
+       {
+          translate([0,0,21/-2]) 
+          cube([16,44,21]);
 if (stepDown)
 {
 	translate([size/2-14.5,29,29])
@@ -113,7 +143,16 @@ if (stepDown)
 						cylinder(d=3,h=6);
 			}
 		}
-}
+}    
+
+
+
+
+
+       
+    }
+   }
+  }
   
   *translate([0,-1,-1]) cube (100);
 }
