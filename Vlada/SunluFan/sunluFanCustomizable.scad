@@ -1,4 +1,4 @@
-//https://www.thingiverse.com/thing:4729474
+//remixed from https://www.thingiverse.com/thing:4729474
 
 stepDown = true; //true or false
 wall = 2.2;
@@ -14,7 +14,8 @@ stepDownInserts = true; //true or false
 tapeWidth=21;
 layerHeight=0.2;
 mountingTape=true; //true or false
-
+cableDuct=true; //true or false
+tempProbe=true; //true or false
 difference()
 {
   hull()
@@ -103,10 +104,22 @@ difference()
        
      }   
 
-
+  if (cableDuct)
+  {       
  //cable
         translate([(size/2)-3,(70)-3,-1]) cylinder(d=6,h=80);
-     
+  }
+
+
+  if (tempProbe)
+  {       
+ //thermistor
+     translate([size/2-14.5+3,55,55])
+     rotate([90,0,-10]) 
+      cylinder(d=3,h=40);
+  }   
+
+  
   if (stepDown)
   {
     translate([size/2-14.5,29,29])
