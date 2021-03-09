@@ -7,13 +7,13 @@ $fn=256;
 fanOffsetX = stepDown ? -1.5 : 0;
 fanOff = [fanOffsetX,30,30];
 size = 78.6-4;
-fanWidth=41;
-fanDeph=20;
+fanWidth=41;//41 mm min
+fanDeph=11;//11 mm min
 mainInserts = false; //true or false
 stepDownInserts = true; //true or false
 tapeWidth=21;
 layerHeight=0.2;
-mountingTape=true; //true or false
+mountingTape=false; //true or false
 cableDuct=true; //true or false
 tempProbe=true; //true or false
 difference()
