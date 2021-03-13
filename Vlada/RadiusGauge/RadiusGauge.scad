@@ -113,9 +113,5 @@ difference() {
 
 
 Gauge(55);
-    
-translate ([0,0,5])
-Gauge(65);
-
 
 
