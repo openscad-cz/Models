@@ -34,7 +34,7 @@ TextDepth = 1;
 // Hole diameter, in mm
 HoleDiameter = 8;
 // Number of curve facets
-CurveResolution = 180; // [6:360]
+CurveResolution = 60; // [6:360]
 //Your text
 yourText="sourekv";
 //Your font
@@ -112,6 +112,6 @@ difference() {
 
 
 
-Gauge(55);
+Gauge(22);
 
 
